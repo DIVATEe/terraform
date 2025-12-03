@@ -1,0 +1,6 @@
+#these files are created after terraform init command
+
+*.terraform.lock.hcl
+*.terraform/
+terraform.tfstate
+terraform.tfstate.backup
