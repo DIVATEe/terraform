@@ -11,7 +11,7 @@ variable "webserver_vpc_security_group_ids" {
   default = "sg-0a1badee4156834ca"
 }
 variable "webserver_disable_api_termination" {
-  default = true
+  default = false
 }
 variable "webserver_count" {
   default = 2
