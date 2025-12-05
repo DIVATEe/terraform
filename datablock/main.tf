@@ -59,15 +59,15 @@ data "aws_ami" "ami" {
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.9.20251117.1-kernel-6.1-x86_64"]
+    values = ["al2023-ami-*-x86_64"]
   }
 
   filter {
-    name = "virtualization-type"
-    values = [ "hvm" ]
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 
-  owners = [245639922148]
+  owners = [ "amazon" ]
 }
 
 data "aws_instance" "data_webserver_instance" {
