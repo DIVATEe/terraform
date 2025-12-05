@@ -10,12 +10,13 @@ resource "aws_instance" "webserver" {
                  #!/bin/bash
                  sudo apt update -y
                  sudo apt install nginx -y
-                 cat <<-EOF >/var/www/html/index.html
+                 cat <<HTML >/var/www/html/index.html
                  <html>
                   <h1> hello Amit B-61 <h1>
                   <h2> from terraform user data script <h2>
                  <html>
-                 EOF
+                 HTML
+                 
                  systemctl restart nginx
                  systemctl enable nginx
 
