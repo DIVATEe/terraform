@@ -21,7 +21,7 @@ resource "aws_instance" "webserver" {
                  sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
                  Types: deb
                  URIs: https://download.docker.com/linux/ubuntu
-                 Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME-VERSION_CODENAME}")
+                 Suites: $(. /etc/os-release && echo "${"UBUNTU_CODENAME:-$VERSION_CODENAME"}")
                  Components: stable
                  Signed-By: /etc/apt/keyrings/docker.asc
 
@@ -96,12 +96,4 @@ data "aws_ami" "ami" {
 
 data "aws_instance" "data_webserver_instance" {
   instance_id = "i-09bbf61f4f0ef246f"
-}
-
-output "ami_id" {
-  value = data.aws_ami.al2023.id
-}
-
-output "ami_name" {
-  value = data.aws_ami.al2023.name
 }
