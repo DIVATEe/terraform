@@ -7,7 +7,7 @@ resource "aws_instance" "webserver" {
   #count                   = var.webserver_count
 
   user_data = <<-EOF
-                 #!bin/bash
+                 #!/bin/bash
                  sudo apt update -y
                  sudo apt install nginx -y
                  # Add Docker's official GPG key:
@@ -24,6 +24,8 @@ resource "aws_instance" "webserver" {
                  Suites: $(. /etc/os-release && echo "${"UBUNTU_CODENAME:-$VERSION_CODENAME"}")
                  Components: stable
                  Signed-By: /etc/apt/keyrings/docker.asc
+
+                 sudo apt update -y
 
                  sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
                  EOF
