@@ -58,11 +58,16 @@ data "aws_ami" "ami" {
   most_recent = true
 
   filter {
-    name = "name"
+    name   = "name"
     values = ["al2023-ami-2023.9.20251117.1-kernel-6.1-x86_64"]
   }
-  
-  owners = [ 245639922148 ]
+
+  filter {
+    name = "virtualization-type"
+    values = [ "hvm" ]
+  }
+
+  owners = [245639922148]
 }
 
 data "aws_instance" "data_webserver_instance" {
