@@ -54,8 +54,15 @@ data "aws_security_group" "data_webserver_sg" {
   name = "launch-wizard-1"
 }
 
-data "aws_ami" "data_webserver_ami" {
-  name = [ "al2023-ami-2023.9.20251117.1-kernel-6.1-x86_64" ]
+data "aws_ami" "ami" {
+  most_recent = true
+
+  filter {
+    name = "name"
+    values = ["al2023-ami-2023.9.20251117.1-kernel-6.1-x86_64"]
+  }
+  
+  owners = [ 245639922148 ]
 }
 
 data "aws_instance" "data_webserver_instance" {
