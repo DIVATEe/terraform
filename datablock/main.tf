@@ -67,9 +67,17 @@ data "aws_ami" "ami" {
     values = ["hvm"]
   }
 
-  owners = [ "amazon" ]
+  owners = ["amazon"]
 }
 
 data "aws_instance" "data_webserver_instance" {
   instance_id = "i-09bbf61f4f0ef246f"
+}
+
+output "ami_id" {
+  value = data.aws_ami.al2023.id
+}
+
+output "ami_name" {
+  value = data.aws_ami.al2023.name
 }
