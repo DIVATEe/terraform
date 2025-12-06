@@ -2,9 +2,27 @@ resource "aws_instance" "webserver" {
   instance_type           = var.webserver_instance_type
   ami                     = var.webserver_ami
   key_name                = var.webserver_key_name
-  vpc_security_group_ids  = [var.webserver_vpc_security_group_ids , aws_security_group.webserver_sg.id]
+  vpc_security_group_ids  = [var.webserver_vpc_security_group_ids, aws_security_group.webserver_sg.id, data.aws_security_group.data_webserver_sg.id]
   disable_api_termination = var.webserver_disable_api_termination
   #count                   = var.webserver_count
+
+  user_data = <<-EOT
+                 #!/bin/bash
+                 sudo apt update -y
+                 sudo apt install nginx -y
+                 cat <<HTML >/var/www/html/index.html
+                 <html>
+                  <h1> hello Amit B-61 <h1>
+                  <h2> from terraform user data script <h2>
+                 <html>
+                 HTML
+                 
+                 systemctl restart nginx
+                 systemctl enable nginx
+
+                 EOT
+
+
 }
 
 resource "aws_security_group" "webserver_sg" {
@@ -46,10 +64,30 @@ output "webserver_sg_arn" {
 }
 
 output "webserver_sg_id" {
-<<<<<<< HEAD
   value = aws_security_group.webserver_sg.id
 }
-=======
-  value =  aws_security_group.webserver_sg.id
+
+
+data "aws_security_group" "data_webserver_sg" {
+  name = "launch-wizard-1"
 }
->>>>>>> ebe5c6ba8dc2d59410308aed23820a5da1d08ed4
+
+data "aws_ami" "ami" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["amazon"]
+}
+
+data "aws_instance" "data_webserver_instance" {
+  instance_id = "i-09bbf61f4f0ef246f"
+}
