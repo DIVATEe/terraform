@@ -46,10 +46,6 @@ output "webserver_sg_arn" {
 }
 
 output "webserver_sg_id" {
-<<<<<<< HEAD
   value = aws_security_group.webserver_sg.id
 }
-=======
-  value =  aws_security_group.webserver_sg.id
-}
->>>>>>> ebe5c6ba8dc2d59410308aed23820a5da1d08ed4
+
