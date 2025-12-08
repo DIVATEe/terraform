@@ -1,6 +1,6 @@
 resource "aws_instance" "web" {
-  ami = "ami-02b8269d5e85954ef"
-     key_name = "Oct30"
-   instance_type = "t3.micro"
-  vpc_security_group_ids = [ "sg-0a1badee4156834ca" ]
+  ami                    = var.web_ami
+  key_name               = var.web_key_name
+  instance_type          = var.web_instance_type
+  vpc_security_group_ids = [var.web_vpc_security_group_ids]
 }
